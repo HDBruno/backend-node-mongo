@@ -1,0 +1,25 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "usrName": "raiden",
+            "pwd": "1234",
+            "email": "raiden@metalgear.com",
+            "role": "admin"
+        },
+        {
+            "id": 2,
+            "usrName": "ayaka",
+            "pwd": "1234",
+            "email": "ayaka@genshin.com",
+            "role": "user"
+        },
+        {
+            "id": 3,
+            "usrName": "mei",
+            "pwd": "1234",
+            "email": "raidenmei@honkai.com",
+            "role": "user"
+        }
+    ]
+}
