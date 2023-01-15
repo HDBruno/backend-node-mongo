@@ -1,9 +1,7 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+const loginController = require("../../controllers/loginController");
 
-router.route('/login').post((req, res) =>{
-    const loginInfo = req.body;
-    //llamar el servicio para hacer el login
-});
+router.post("/login", cors(), loginController.login);
 
 module.exports = router;
