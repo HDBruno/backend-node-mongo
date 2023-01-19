@@ -2,10 +2,10 @@ POST http://localhost:3000/api/v1/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "usrName": "raiden",
+    "email": "raiden@metalgear.com",
     "pwd": "1234"
 }
 
 ### con esto se separan las consultas.
 
-GET http://localhost:3000/api/v1 HTTP/1.1
+GET http://localhost:3000/api/v1/users HTTP/1.1
