@@ -13,5 +13,5 @@ const userScheme = new mongoose.Schema(
     }
 );
 
-userScheme.plugin(mongooseDelete, { overrideMethods: 'all'}); //con este plugin se puede hacer soft delete
+userScheme.plugin(mongooseDelete, { overrideMethods: true, deletedAt: true }); //con este plugin se puede hacer soft delete
 module.exports = mongoose.model("users", userScheme);
