@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const cors = require('cors');
 const initDB = require("./database/mongo.js");
@@ -7,6 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 //middleware para parsear el body de los post
+app.use(cors());
 app.use(express.json());
 
 //cors
