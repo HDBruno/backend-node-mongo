@@ -9,7 +9,7 @@ module.exports.authMiddleware = async (req, res, next) => {
       return;
     }
 
-    const token = req.headers.athorization.split(' ').pop(); // el token viene el el header como Barer  iwjrfn234..., dividimos el strting en 2 por el espacio y recuperamos la 2da parte.
+    const token = req.headers.authorization.split(' ').pop(); // el token viene el el header como Barer  iwjrfn234..., dividimos el strting en 2 por el espacio y recuperamos la 2da parte.
     const tokenData = await verifyToken(token);
 
     if (!tokenData._id) {
@@ -21,7 +21,7 @@ module.exports.authMiddleware = async (req, res, next) => {
     req.user = user; // se añade la info del usuario al request
     
     next();
-  } catch (e) {
-    handleHttpErrors(res, "No existe una sesion.", 401)
+  } catch (err) {
+    handleHttpErrors(res, "No existe una sesion.", 401);
   }
 }
