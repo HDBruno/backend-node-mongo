@@ -1,2 +1,2 @@
 # backend-node-express
-backend con node y express y mongo
+backend con node, express y mongo
