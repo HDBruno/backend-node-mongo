@@ -5,9 +5,9 @@ const { getUsers, setUser, getUserById, updateUser, deleteUser } = require("../.
 const { validatorCreateUser, validatorGetUserById } = require('../../validators/users.js');
 const { checkRole } = require("../../middlewares/role.js");
 
-router.get("/users", authMiddleware, checkRole(['USER']), getUsers);
+router.get("/users", authMiddleware, checkRole(['USER', 'ADMIN']), getUsers);
 
-router.get("/users/:id", authMiddleware, checkRole(['USER']), validatorGetUserById, getUserById);
+router.get("/users/:id", authMiddleware, checkRole(['USER', 'ADMIN']), validatorGetUserById, getUserById);
 
 router.post("/users", authMiddleware, checkRole(['ADMIN']), validatorCreateUser, setUser);
 
