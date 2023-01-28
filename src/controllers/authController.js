@@ -2,36 +2,38 @@ const { matchedData } = require("express-validator");
 const { encrypt, compare } = require("../utils/handlePassword.js");
 const { tokenSign } = require("../utils/handleJWT.js");
 const { userModel } = require("../models");
-const handleHttpErrors = require("../utils/handleErrors.js");
+const { handleHttpErrors } = require("../utils/handleErrors.js");
 
 module.exports.register = async (req, res) => {
   try {
-    req = matchedData(req);
-    const hashedPwd = await encrypt(req.pwd);
-    const body = { ...req, pwd: hashedPwd };
-    const userData = await userModel.create(body);
+    const body = matchedData(req);
+    const hashedPwd = await encrypt(body.pwd);
+    const newBody = { ...body, pwd: hashedPwd };
+    const userData = await userModel.create(newBody);
     res.status(200).send({
       status: "OK",
       data: "El usuario se ha creado.",
       token: await tokenSign(userData),
     });
-  } catch (e) {
+  } catch (err) {
     handleHttpErrors(res, "NO se ha podido crear el usuario.", 400);
+    console.log(err);
   }
 };
 
 module.exports.login = async (req, res) => {
   try {
-    req = matchedData(req); // solamente deja la data q corresponda al modelo de datos
-    const user = await userModel.findOne({ email: req.email });
+    const body = matchedData(req); // solamente deja la data q corresponda al modelo de datos
     
+    const user = await userModel.findOne({ email: body.email });
+
     if (!user) {
       handleHttpErrors(res, "Usuario inexistente.", 404);
       return;
     }
     
     const hashedPwd = user.pwd;
-    const check = await compare(req.pwd, hashedPwd);
+    const check = await compare(body.pwd, hashedPwd);
     
     if (!check) {
       handleHttpErrors(res, "Password NO valido.", 401);
@@ -47,7 +49,8 @@ module.exports.login = async (req, res) => {
     };
     
     res.status(200).send({ data });
-  } catch (e) {
+  } catch (err) {
     handleHttpErrors(res, "ERROR al loguear al usuario.", 400);
+    console.log(err);
   }
 };
